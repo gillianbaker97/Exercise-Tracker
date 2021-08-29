@@ -36,6 +36,27 @@ app.post("/submit", ({body}, res) => {
     });
 });
 
+//finding all workouts
+app.get("/TodayWorkout", (req, res) => {
+  db.TodayWorkout.find({})
+  .then(dbTodayWorkout => {
+    res.json.(dbTodayWorkout);
+  })
+  .catch(err => {
+    res.json(err);
+  });
+});
+
+//getting the exercises themselves so we can do the workouts
+app.get("/Exercises", (req, res) => {
+  db.Exercises.find({})
+  .then( dbExercises => {
+    res.json(dbExercises);
+  })
+  .catch(err => {
+    res.json(err)
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);

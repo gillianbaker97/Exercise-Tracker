@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/userdb", { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Exercises", { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, });
 
 //creating all the exercises we need for the database
 db.Exercises.create({name: "Daily Workout"})

@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TodayWorkout = new Schema({
+const TodayWorkoutSchema = new Schema({
     type: String
 });
 
-const TodayWorkout = mongoose.model("TodayWorkout", TodayWorkout);
+const TodayWorkout = mongoose.model("TodayWorkout", TodayWorkoutSchema);
 module.exports = TodayWorkout;

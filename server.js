@@ -24,7 +24,7 @@ db.Exercises.create({name: "Daily Workout"})
   .catch(({message}) => {
     console.log(message);
   });
-  
+
 //updating a new workout by id
 app.post("/submit", ({body}, res) => {
   db.TodayWorkout.create(body)
@@ -41,7 +41,7 @@ app.post("/submit", ({body}, res) => {
 app.get("/TodayWorkout", (req, res) => {
   db.TodayWorkout.find({})
   .then(dbTodayWorkout => {
-    res.json.(dbTodayWorkout);
+    res.json(dbTodayWorkout);
   })
   .catch(err => {
     res.json(err);

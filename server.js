@@ -24,7 +24,8 @@ db.Exercises.create({name: "Daily Workout"})
   .catch(({message}) => {
     console.log(message);
   });
-//creating a new workout by id
+  
+//updating a new workout by id
 app.post("/submit", ({body}, res) => {
   db.TodayWorkout.create(body)
     .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
@@ -60,4 +61,4 @@ app.get("/Exercises", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
-})
+});

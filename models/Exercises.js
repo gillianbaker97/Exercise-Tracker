@@ -3,7 +3,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ExercisesSchema = new Schema ({
-    
+
+    day: { 
+        type: Date,
+        default: () => new Date()
+    },
+    workout:[{
     type: {
         type: String,
         trim: true,
@@ -20,7 +25,7 @@ const ExercisesSchema = new Schema ({
         type: Number,
         trim: true,
         required: "How long were you working out?",
-        validate: [({ length }) => length >= 5, "Workout should be shorter."]
+        // validate: [({ length }) => length <= 5, "Workout should be shorter."]
         
     },
 
@@ -28,15 +33,14 @@ const ExercisesSchema = new Schema ({
         type: Number,
         trim: true,
         required: "How heavy are your weights?",
-        validate: [({ length }) => length >= 5, "Workout should be shorter."]
+        // validate: [({ length }) => length <= 5, "Workout should be shorter."]
         
     },
-
     reps: { 
         type: Number,
         trim: true,
         required: "How many reps?",
-        validate: [({ length }) => length >= 5, "Workout should be shorter."]
+        // validate: [({ length }) => length <= 5, "Workout should be shorter."]
         
     },
 
@@ -44,9 +48,10 @@ const ExercisesSchema = new Schema ({
         type: Number,
         trim: true,
         required: "How many sets did you do?",
-        validate: [({ length }) => length >= 5, "Workout should be shorter."]
+        // validate: [({ length }) => length <= 5, "Workout should be shorter."]
         
-    }
+    },
+  }]
 });
 
 const Exercises = mongoose.model("Exercises", ExercisesSchema);

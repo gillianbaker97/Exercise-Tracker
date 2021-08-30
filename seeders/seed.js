@@ -10,7 +10,7 @@ mongoose.connect('mongodb://localhost/Exercises', {
 const workoutSeed = [
   {
     day: new Date(new Date().setDate(new Date().getDate() - 9)),
-    exercises: [
+    Workout: [
       {
         type: 'resistance',
         name: 'Bicep Curl',
@@ -19,6 +19,11 @@ const workoutSeed = [
         reps: 10,
         sets: 4,
       },
+      { 
+        type: 'resistance',
+        name: 'Push-Up',
+        duration: 10
+      }
     ],
   },
   {
@@ -125,10 +130,10 @@ const workoutSeed = [
   },
 ];
 
-db.Workout.deleteMany({})
-  .then(() => db.Workout.collection.insertMany(workoutSeed))
+db.Exercises.deleteMany({})
+  .then(() => db.Exercises.collection.insertMany(workoutSeed))
   .then((data) => {
-    console.log(data.result.n + ' records inserted!');
+    console.log(data.result.n + ' exercises inserted!');
     process.exit(0);
   })
   .catch((err) => {

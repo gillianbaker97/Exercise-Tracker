@@ -26,8 +26,8 @@ db.Exercises.create({name: "Daily Workout"})
   });
 
 //updating a new workout by id
-app.post("/submit", ({body}, res) => {
-  db.TodayWorkout.create(body)
+app.post("/Exercises", ({body}, res) => {
+  db.Exercises.create(body)
     .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
     .then(dbExercises => {
       res.json(dbExercises);
@@ -38,10 +38,10 @@ app.post("/submit", ({body}, res) => {
 });
 
 //finding all workouts
-app.get("/TodayWorkout", (req, res) => {
-  db.TodayWorkout.find({})
-  .then(dbTodayWorkout => {
-    res.json(dbTodayWorkout);
+app.get("/Exercises", (req, res) => {
+  db.Exercises.find({})
+  .then(dbExercises => {
+    res.json(dbExercises);
   })
   .catch(err => {
     res.json(err);

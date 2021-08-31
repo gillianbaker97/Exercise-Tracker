@@ -36,7 +36,7 @@ db.Exercises.create({name: "Daily Workout"})
   });
 
 //updating a new workout by id
-app.post("/Exercises", ({body}, res) => {
+app.post("/Exercises/:id", ({body}, res) => {
   db.Exercises.create(body)
     .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
     .then(dbExercises => {
@@ -47,6 +47,14 @@ app.post("/Exercises", ({body}, res) => {
       res.json(err);
       console.log("your workout failed to update; please try again");
     });
+});
+
+// updating exercises by id
+app.put("/Exercises/:id", (req, res) => {
+  res.json({
+      status: "ok",
+      id: req.params.id
+  })
 });
 
 //finding all workouts
@@ -61,17 +69,18 @@ app.get("/Exercises", (req, res) => {
   });
 });
 
-//getting the exercises themselves so we can do the workouts
-app.get("/Exercises", (req, res) => {
+//finding all workouts by id
+app.get("/Exercises/:id", (req, res) => {
   db.Exercises.find({})
-  .then( dbExercises => {
+  .then(dbExercises => {
     res.json(dbExercises);
-    console.log("exercise retrieved!");
+    console.log("found the workouts!")
   })
   .catch(err => {
-    res.json(err)
+    res.json(err);
   });
 });
+
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);

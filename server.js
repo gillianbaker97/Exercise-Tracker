@@ -35,9 +35,23 @@ db.Exercises.create({name: "Daily Workout"})
     console.log(message);
   });
 
-//updating a new workout by id
+//adding a new workout by id
 app.post("/Exercises/:id", ({body}, res) => {
   db.Exercises.create(body)
+    .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
+    .then(dbExercises => {
+      res.json(dbExercises);
+      console.log("your workout was updated!");
+    })
+    ç.catch(err => {
+      res.json(err);
+      console.log("your workout failed to update; please try again");
+    });
+});
+
+// updating exercises by id
+app.put("/Exercises/:id", ({body}, res) => {
+  db.Exercises.update(body)
     .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
     .then(dbExercises => {
       res.json(dbExercises);
@@ -47,14 +61,10 @@ app.post("/Exercises/:id", ({body}, res) => {
       res.json(err);
       console.log("your workout failed to update; please try again");
     });
-});
-
-// updating exercises by id
-app.put("/Exercises/:id", (req, res) => {
-  res.json({
-      status: "ok",
-      id: req.params.id
-  })
+  // res.json({
+  //     status: "ok",
+  //     id: req.params.id
+  // })
 });
 
 //finding all workouts

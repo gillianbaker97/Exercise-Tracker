@@ -43,7 +43,7 @@ app.post("/Exercises/:id", ({body}, res) => {
       res.json(dbExercises);
       console.log("your workout was updated!");
     })
-    ç.catch(err => {
+    .catch(err => {
       res.json(err);
       console.log("your workout failed to update; please try again");
     });
@@ -51,7 +51,7 @@ app.post("/Exercises/:id", ({body}, res) => {
 
 // updating exercises by id
 app.put("/Exercises/:id", ({body}, res) => {
-  db.Exercises.update(body)
+  db.Exercises.updateOne(body)
     .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
     .then(dbExercises => {
       res.json(dbExercises);

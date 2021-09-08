@@ -2,7 +2,9 @@ const express = require("express");
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const { MongoClient } = require('mongodb');
-//const uri="mongodb+srv://AtlasAdmin:<koalalove97>@cluster0.vjzey.mongodb.net/Exercises?retryWrites=true&w=majority";
+const path = require('path');
+
+//const uri="mongodb+srv://AtlasAdmin:koalalove97@cluster0.vjzey.mongodb.net/Exercises?retryWrites=true&w=majority";
 const uri = process.env.MONGODB_URI;
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 // client.connect(err => {
@@ -50,11 +52,28 @@ app.post("/Exercises/:id", ({body}, res) => {
 });
 
 // updating exercises by id
-app.put("/Exercises/:id", ({body}, res) => {
-  db.Exercises.updateOne(body)
-    .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
-    .then(dbExercises => {
-      res.json(dbExercises);
+// app.put("/Exercises/:id", ({body}, res) => {
+//   db.Exercises.updateOne(body)
+//     .then(({_id}) => db.Exercises.findOneAndUpdate({}, {$push: { workouts: _id}}, {new: true}))
+//     .then(dbExercises => {
+//       res.json(dbExercises);
+//       console.log("your workout was updated!");
+//     })
+//     .catch(err => {
+//       res.json(err);
+//       console.log("your workout failed to update; please try again");
+//     });
+//   // res.json({
+//   //     status: "ok",
+//   //     id: req.params.id
+//   // })
+// });
+
+app.put("/exercise", ({body}, res) => {
+  db.exercise.updateOne(body)
+    .then(({_id}) => db.exercise.findOneAndUpdate({}, {$push: { "/api/workouts": _id}}, {new: true}))
+    .then(dbexercise => {
+      res.json(dbexercise);
       console.log("your workout was updated!");
     })
     .catch(err => {
@@ -66,6 +85,15 @@ app.put("/Exercises/:id", ({body}, res) => {
   //     id: req.params.id
   // })
 });
+
+// view routes
+app.get('/exercise', (req,res) => 
+  res.sendFile(path.join(__dirname, 'public/exercise.html'))
+);
+
+app.get('/stats', (req,res) => 
+  res.sendFile(path.join(__dirname, 'public/stats.html'))
+);
 
 //finding all workouts
 app.get("/Exercises", (req, res) => {
